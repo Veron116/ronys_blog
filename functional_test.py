@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 import unittest
 
 
@@ -15,7 +16,7 @@ class BasicInstallTest(unittest.TestCase):
         self.browser.quit()
 
     # запуск тестового браузера по локальному адресу
-    def test_home_page(self):
+    def test_home_page_title(self):
         # В браузере пользователя открылся сайт (по адресу 'http://127.0.0.1:8000')
         # В заголовке сайта пользователь прочитал "Блог Вероники Рыжковой"
         self.browser.get('http://127.0.0.1:8000')
@@ -24,9 +25,9 @@ class BasicInstallTest(unittest.TestCase):
     def test_home_page_header(self):
         # В шапке сайта написано "Вероника Рыжкова"
 
-        browser = self.browser.get('http://127.0.0.1:8000')
-        header = browser.find_elements_by_tag_name("h1")[0]
-        self.assertIn('Вероника Рыжкова', header)
+        self.browser.get('http://127.0.0.1:8000')
+        header = self.browser.find_elements(By.TAG_NAME, "h1")[0]
+        self.assertIn('Вероника Рыжкова', header.text)
 
 
 if __name__ == '__main__':
