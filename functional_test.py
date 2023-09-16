@@ -24,10 +24,25 @@ class BasicInstallTest(unittest.TestCase):
 
     def test_home_page_header(self):
         # В шапке сайта написано "Вероника Рыжкова"
-
         self.browser.get('http://127.0.0.1:8000')
         header = self.browser.find_elements(By.TAG_NAME, "h1")[0]
         self.assertIn('Вероника Рыжкова', header.text)
+
+    def test_home_page_blog(self):
+        # Под шапкой сайта расположен блок со статьями
+        self.browser.get('http://127.0.0.1:8000')
+        article_list = self.browser.find_element(By.CLASS_NAME, 'article-list')
+        self.assertTrue(article_list)
+
+    def test_home_page_articles_look_correct(self):
+        # У каждой статьи есть заголовок и абзац с текстом
+        self.browser.get('http://127.0.0.1:8000')
+        article_title = self.browser.find_element(
+            By.CLASS_NAME, 'article-title')
+        article_summary = self.browser.find_element(
+            By.CLASS_NAME, 'article-summary')
+        self.assertTrue(article_title)
+        self.assertTrue(article_summary)
 
 
 if __name__ == '__main__':
@@ -35,7 +50,5 @@ if __name__ == '__main__':
 
 # Описываем user story как будет тестироваться функционал
 
-# Под шапкой сайта расположен блок со статьями
-# У каждой статьи есть заголовок и абзац с текстом
 # Пользователь кликнул по заголовку и у него открылась страница с полным текстом статьи
 # Прочитал статью пользователь кликнул по тексту "Вероника Рыжкова" в шапке сайта и попал обратно на главную страницу
